@@ -1,11 +1,16 @@
 name: GitHub Actions Demo
-on:
-  schedule:
-    - cron: '* * * * *'
-  workflow_dispatch:
+on: [workflow_dispatch]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python job.py
+      
+      - name: Creer un fichier de test
+        run: echo "Ceci est un fichier genere par la CI" > resultat.txt
+
+      - name: Uploader le fichier comme artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mon-super-artefact
+          path: resultat.txt
