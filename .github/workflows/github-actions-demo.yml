@@ -6,11 +6,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Creer un fichier de test
-        run: echo "Ceci est un fichier genere par la CI" > resultat.txt
-
-      - name: Uploader le fichier comme artefact
-        uses: actions/upload-artifact@v4
-        with:
-          name: mon-super-artefact
-          path: resultat.txt
+      - name: Executer le script Python avec le secret
+        env:
+          # On récupère le secret GitHub pour le stocker dans une variable d'environnement locale MY_SECRET
+          MY_SECRET: ${{ secrets.SECRET_API_TOKEN }}
+        run: python job.py
